@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portland Trip — Sep 3–7</title>
+  <title>Portland Trip — Sep 5–7</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,7 +26,6 @@
       min-height: 100vh;
     }
 
-    /* HERO */
     .hero {
       background: var(--forest);
       padding: 60px 24px 48px;
@@ -44,7 +43,6 @@
     }
 
     .hero-eyebrow {
-      font-family: 'DM Sans', sans-serif;
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.2em;
@@ -61,10 +59,7 @@
       margin-bottom: 12px;
     }
 
-    .hero h1 em {
-      font-style: italic;
-      color: var(--mist);
-    }
+    .hero h1 em { font-style: italic; color: var(--mist); }
 
     .hero-sub {
       font-size: 15px;
@@ -76,18 +71,15 @@
     .rain-line {
       height: 3px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      margin: 0 auto;
+      margin: 32px auto 0;
       width: 80px;
-      margin-top: 32px;
     }
 
-    /* TABS */
     .tab-nav {
       display: flex;
       overflow-x: auto;
       background: var(--forest);
       padding: 0 16px;
-      gap: 0;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
     }
@@ -111,13 +103,8 @@
     }
 
     .tab-btn:hover { color: var(--cream); }
+    .tab-btn.active { color: var(--cream); border-bottom-color: var(--accent); }
 
-    .tab-btn.active {
-      color: var(--cream);
-      border-bottom-color: var(--accent);
-    }
-
-    /* CONTENT */
     .tab-content { display: none; padding: 32px 24px 64px; max-width: 680px; margin: 0 auto; }
     .tab-content.active { display: block; }
 
@@ -130,7 +117,6 @@
       border-bottom: 1px solid var(--mist);
     }
 
-    /* STOP CARD */
     .stop {
       display: flex;
       gap: 20px;
@@ -165,13 +151,36 @@
       margin-bottom: 6px;
     }
 
+    .stop-name a {
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 1px solid var(--mist);
+      transition: border-color 0.2s;
+    }
+
+    .stop-name a:hover { border-color: var(--accent); color: var(--moss); }
+
     .stop-blurb {
       font-size: 14px;
       color: var(--stone);
       line-height: 1.6;
     }
 
-    /* LIST ITEMS (for coffee/things to do) */
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--moss);
+      text-decoration: none;
+      margin-top: 8px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+
+    .map-link:hover { color: var(--accent); }
+    .map-link::before { content: '📍'; font-size: 11px; }
+
     .list-item {
       background: white;
       border-radius: 12px;
@@ -188,13 +197,21 @@
       margin-bottom: 5px;
     }
 
+    .list-item-name a {
+      color: var(--forest);
+      text-decoration: none;
+      border-bottom: 1px solid var(--mist);
+      transition: border-color 0.2s;
+    }
+
+    .list-item-name a:hover { border-color: var(--accent); color: var(--moss); }
+
     .list-item-blurb {
       font-size: 14px;
       color: var(--stone);
       line-height: 1.6;
     }
 
-    /* SECTION DIVIDER */
     .section-divider {
       font-size: 11px;
       font-weight: 500;
@@ -214,7 +231,6 @@
       background: var(--mist);
     }
 
-    /* NOTE */
     .note {
       background: var(--rain);
       border-radius: 10px;
@@ -226,8 +242,8 @@
     }
 
     .note strong { font-weight: 500; }
+    .note a { color: var(--forest); font-weight: 500; }
 
-    /* FOOTER */
     footer {
       text-align: center;
       padding: 32px 24px;
@@ -246,18 +262,18 @@
 <body>
 
 <div class="hero">
-  <p class="hero-eyebrow">September 3 – 7, 2026</p>
+  <p class="hero-eyebrow">September 5 – 7, 2026</p>
   <h1>Portland,<br><em>Oregon</em></h1>
   <p class="hero-sub">A weekend guide · food · coffee · hikes · neighborhoods</p>
   <div class="rain-line"></div>
 </div>
 
 <nav class="tab-nav">
-  <button class="tab-btn active" onclick="showTab('friday')">Friday</button>
-  <button class="tab-btn" onclick="showTab('saturday')">Saturday</button>
-  <button class="tab-btn" onclick="showTab('sunday')">Sunday</button>
-  <button class="tab-btn" onclick="showTab('coffee')">☕ Coffee</button>
-  <button class="tab-btn" onclick="showTab('todo')">Things To Do</button>
+  <button class="tab-btn active" onclick="showTab('friday', this)">Friday</button>
+  <button class="tab-btn" onclick="showTab('saturday', this)">Saturday</button>
+  <button class="tab-btn" onclick="showTab('sunday', this)">Sunday</button>
+  <button class="tab-btn" onclick="showTab('coffee', this)">☕ Coffee</button>
+  <button class="tab-btn" onclick="showTab('todo', this)">Things To Do</button>
 </nav>
 
 <!-- FRIDAY -->
@@ -267,24 +283,27 @@
   <div class="stop">
     <div class="stop-time">Morning</div>
     <div class="stop-body">
-      <div class="stop-name">Good Coffee</div>
+      <div class="stop-name"><a href="https://maps.google.com/?q=Good+Coffee+336+E+Historic+Columbia+River+Hwy+Troutdale+OR" target="_blank">Good Coffee</a></div>
       <div class="stop-blurb">Portland's beloved local chain right in Troutdale — grab your morning coffee on the way to the falls. Clean, modern, great lattes.</div>
+      <a class="map-link" href="https://maps.google.com/?q=Good+Coffee+336+E+Historic+Columbia+River+Hwy+Troutdale+OR" target="_blank">Open in Maps</a>
     </div>
   </div>
 
   <div class="stop">
     <div class="stop-time">Mid-Morning</div>
     <div class="stop-body">
-      <div class="stop-name">Latourell Falls Hike</div>
+      <div class="stop-name"><a href="https://maps.google.com/?q=Latourell+Falls+Trailhead+Oregon" target="_blank">Latourell Falls Hike</a></div>
       <div class="stop-blurb">Easy 2.4 mile loop, stunning waterfall, minimal elevation gain. About 1–1.5 hours. Drive back ~30–40 min to Portland.</div>
+      <a class="map-link" href="https://maps.google.com/?q=Latourell+Falls+Trailhead+Oregon" target="_blank">Open in Maps</a>
     </div>
   </div>
 
   <div class="stop">
     <div class="stop-time">4:00 PM</div>
     <div class="stop-body">
-      <div class="stop-name">Kati Portland</div>
+      <div class="stop-name"><a href="https://maps.google.com/?q=Kati+Portland+2932+SE+Division+St+Portland+OR" target="_blank">Kati Portland</a></div>
       <div class="stop-blurb">4.7 star vegan Thai on SE Division — pad see ew, curries, Thai tots. Open until 8:45pm. Right on the Division Street shopping corridor — pop into shops before or after.</div>
+      <a class="map-link" href="https://maps.google.com/?q=Kati+Portland+2932+SE+Division+St+Portland+OR" target="_blank">Open in Maps</a>
     </div>
   </div>
 </div>
@@ -293,20 +312,23 @@
 <div class="tab-content" id="saturday">
   <p class="day-label">Saturday</p>
 
+  <div class="note"><strong>Heads up:</strong> Screen Door is walk-in only. Arrive right at 8:45am to beat the line.</div>
 
   <div class="stop">
     <div class="stop-time">8:45 AM</div>
     <div class="stop-body">
-      <div class="stop-name">Screen Door</div>
+      <div class="stop-name"><a href="https://maps.google.com/?q=Screen+Door+2337+E+Burnside+St+Portland+OR" target="_blank">Screen Door</a></div>
       <div class="stop-blurb">Southern brunch, famous chicken and waffles. Walk-in only, no reservations. Close to the Alberta Arts District — great neighborhood to walk around after.</div>
+      <a class="map-link" href="https://maps.google.com/?q=Screen+Door+2337+E+Burnside+St+Portland+OR" target="_blank">Open in Maps</a>
     </div>
   </div>
 
   <div class="stop">
     <div class="stop-time">Evening</div>
     <div class="stop-body">
-      <div class="stop-name">Cartopia Food Cart Pod</div>
+      <div class="stop-name"><a href="https://maps.google.com/?q=Cartopia+Food+Carts+1207+SE+Hawthorne+Blvd+Portland+OR" target="_blank">Cartopia Food Cart Pod</a></div>
       <div class="stop-blurb">Portland's iconic food cart pod on SE Hawthorne — Mexican, Thai, Egyptian, pizza, great variety. Right on the Hawthorne Blvd shopping strip.</div>
+      <a class="map-link" href="https://maps.google.com/?q=Cartopia+Food+Carts+1207+SE+Hawthorne+Blvd+Portland+OR" target="_blank">Open in Maps</a>
     </div>
   </div>
 </div>
@@ -315,12 +337,14 @@
 <div class="tab-content" id="sunday">
   <p class="day-label">Sunday</p>
 
+  <div class="note"><strong>Reminder:</strong> Book Kachka ahead at <a href="https://www.kachkapdx.com" target="_blank">kachkapdx.com</a></div>
 
   <div class="stop">
     <div class="stop-time">Morning</div>
     <div class="stop-body">
-      <div class="stop-name">Portland Lux Coffee</div>
+      <div class="stop-name"><a href="https://maps.google.com/?q=Portland+Lux+Coffee+11059+SE+Division+St+Portland+OR" target="_blank">Portland Lux Coffee</a></div>
       <div class="stop-blurb">Hidden gem on outer SE Division. Beautiful cozy atmosphere, amazing pastries and desserts. 4.7 stars.</div>
+      <a class="map-link" href="https://maps.google.com/?q=Portland+Lux+Coffee+11059+SE+Division+St+Portland+OR" target="_blank">Open in Maps</a>
     </div>
   </div>
 
@@ -329,10 +353,10 @@
     <div class="stop-body">
       <div class="stop-name">Brunch — Pick One</div>
       <div class="stop-blurb">
-        <strong>Mi Familia Cafe</strong> — Mexican breakfast, chilaquiles, café de olla. 4.9 ⭐<br>
-        <strong>Flattop & Salamander</strong> — Baleadas, biscuits & gravy, fun vibe. 4.7 ⭐<br>
-        <strong>Little Griddle</strong> — Fried chicken benedict, French toast, shakshuka. 4.6 ⭐<br>
-        <strong>The Mont</strong> — Old school diner, endless coffee $4, giant burrito. 4.6 ⭐
+        <a href="https://maps.google.com/?q=Mi+Familia+Cafe+1408+SE+12th+Ave+Portland+OR" target="_blank" style="color:var(--moss);font-weight:500;">Mi Familia Cafe</a> — Mexican breakfast, chilaquiles, café de olla. 4.9 ⭐<br><br>
+        <a href="https://maps.google.com/?q=Flattop+and+Salamander+1401+SE+Morrison+St+Portland+OR" target="_blank" style="color:var(--moss);font-weight:500;">Flattop & Salamander</a> — Baleadas, biscuits & gravy, fun vibe. 4.7 ⭐<br><br>
+        <a href="https://maps.google.com/?q=Little+Griddle+3566+SE+Hawthorne+Blvd+Portland+OR" target="_blank" style="color:var(--moss);font-weight:500;">Little Griddle</a> — Fried chicken benedict, French toast, shakshuka. 4.6 ⭐<br><br>
+        <a href="https://maps.google.com/?q=The+Mont+2411+SE+Belmont+St+Portland+OR" target="_blank" style="color:var(--moss);font-weight:500;">The Mont</a> — Old school diner, endless coffee $4, giant burrito. 4.6 ⭐
       </div>
     </div>
   </div>
@@ -340,8 +364,9 @@
   <div class="stop">
     <div class="stop-time">6:00 PM</div>
     <div class="stop-body">
-      <div class="stop-name">Kachka</div>
+      <div class="stop-name"><a href="https://maps.google.com/?q=Kachka+960+SE+11th+Ave+Portland+OR" target="_blank">Kachka</a></div>
       <div class="stop-blurb">Beloved Portland Russian restaurant — convivial atmosphere, incredible food, one of the city's best. SE Buckman neighborhood, close to Hawthorne & Division. <strong>Book ahead!</strong></div>
+      <a class="map-link" href="https://maps.google.com/?q=Kachka+960+SE+11th+Ave+Portland+OR" target="_blank">Open in Maps</a>
     </div>
   </div>
 </div>
@@ -353,41 +378,41 @@
   <div class="section-divider">On the Way to the Falls</div>
 
   <div class="list-item">
-    <div class="list-item-name">Rivertrails Cafe & Espresso</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Rivertrails+Cafe+319+E+Historic+Columbia+River+Hwy+Troutdale+OR" target="_blank">Rivertrails Cafe & Espresso</a></div>
     <div class="list-item-blurb">Right in Troutdale on the Historic Columbia River Hwy — solid espresso, great bagel sandwiches. 4.8 ⭐</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Good Coffee (Troutdale)</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Good+Coffee+336+E+Historic+Columbia+River+Hwy+Troutdale+OR" target="_blank">Good Coffee (Troutdale)</a></div>
     <div class="list-item-blurb">Portland's beloved local chain, right across from Rivertrails. Clean, modern, great lattes. Opens 7am Fridays. 4.4 ⭐</div>
   </div>
 
   <div class="section-divider">Eastside Portland</div>
 
   <div class="list-item">
-    <div class="list-item-name">Heretic Coffee Co.</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Heretic+Coffee+5120+SE+28th+Ave+Portland+OR" target="_blank">Heretic Coffee Co.</a></div>
     <div class="list-item-blurb">Volunteer run, roasts their own beans, makes their own syrups. Gorgeous space on SE 28th Ave. 4.9 ⭐</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Portland Lux Coffee</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Portland+Lux+Coffee+11059+SE+Division+St+Portland+OR" target="_blank">Portland Lux Coffee</a></div>
     <div class="list-item-blurb">Hidden gem on outer SE Division. Beautiful cozy atmosphere, amazing desserts and pastries. 4.7 ⭐</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Cadejo Coffee</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Cadejo+Coffee+804+NW+Couch+St+Portland+OR" target="_blank">Cadejo Coffee</a></div>
     <div class="list-item-blurb">Mexican-inspired — mole mocha, café de olla latte, chilaquiles. 4.9 ⭐</div>
   </div>
 
   <div class="section-divider">Portland Icons</div>
 
   <div class="list-item">
-    <div class="list-item-name">Stumptown Coffee Roasters</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Stumptown+Coffee+Roasters+Portland+OR" target="_blank">Stumptown Coffee Roasters</a></div>
     <div class="list-item-blurb">Portland's most iconic roaster. Multiple locations around the city — a must at least once.</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Deadstock Coffee</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Deadstock+Coffee+The+Hoxton+Portland+OR" target="_blank">Deadstock Coffee</a></div>
     <div class="list-item-blurb">Sneaker-themed, "snob-free." Signature drinks named after athletes — Steph Curry (white chocolate mocha), Luther Vandross (lavender mocha). Now at The Hoxton hotel.</div>
   </div>
 </div>
@@ -399,83 +424,83 @@
   <div class="section-divider">Must-Do</div>
 
   <div class="list-item">
-    <div class="list-item-name">Powell's Books</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Powell's+Books+1005+W+Burnside+St+Portland+OR" target="_blank">Powell's Books</a></div>
     <div class="list-item-blurb">World's largest independent bookstore — an entire city block. Could spend hours here. In the Pearl District; 23rd Ave is a short walk away.</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Pittock Mansion</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Pittock+Mansion+3229+NW+Pittock+Dr+Portland+OR" target="_blank">Pittock Mansion</a></div>
     <div class="list-item-blurb">Historic mansion with stunning views of Mt. Hood and the Portland skyline. 4.7 ⭐</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">International Rose Test Garden</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=International+Rose+Test+Garden+400+SW+Kingston+Ave+Portland+OR" target="_blank">International Rose Test Garden</a></div>
     <div class="list-item-blurb">Free, iconic Portland. Thousands of rose varieties, beautiful terraced walkways. 4.8 ⭐</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Portland Japanese Garden</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Portland+Japanese+Garden+611+SW+Kingston+Ave+Portland+OR" target="_blank">Portland Japanese Garden</a></div>
     <div class="list-item-blurb">Peaceful and stunning, right next to the Rose Garden. Feels like Japan. 4.6 ⭐</div>
   </div>
 
   <div class="section-divider">Nature</div>
 
   <div class="list-item">
-    <div class="list-item-name">Forest Park</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Forest+Park+Portland+OR" target="_blank">Forest Park</a></div>
     <div class="list-item-blurb">Largest urban forest in the US. Great trails through old-growth forest, very Portland. 4.8 ⭐</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Hoyt Arboretum</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Hoyt+Arboretum+4000+SW+Fairview+Blvd+Portland+OR" target="_blank">Hoyt Arboretum</a></div>
     <div class="list-item-blurb">Free, beautiful tree walks including a stunning redwood grove. 4.9 ⭐</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Lan Su Chinese Garden</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Lan+Su+Chinese+Garden+239+NW+Everett+St+Portland+OR" target="_blank">Lan Su Chinese Garden</a></div>
     <div class="list-item-blurb">Traditional Chinese garden tucked in the city with a tea house inside. 4.7 ⭐</div>
   </div>
 
   <div class="section-divider">Neighborhoods & Shopping</div>
 
   <div class="list-item">
-    <div class="list-item-name">Pearl District</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Pearl+District+Portland+OR" target="_blank">Pearl District</a></div>
     <div class="list-item-blurb">Galleries, design shops, boutiques — upscale but approachable, very walkable. Near Powell's & Nong's Khao Man Gai.</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Alberta Arts District</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Alberta+Arts+District+Portland+OR" target="_blank">Alberta Arts District</a></div>
     <div class="list-item-blurb">Murals everywhere, local boutiques, vintage shops, very creative neighborhood vibe. Near Screen Door.</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Mississippi Avenue</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Mississippi+Avenue+Portland+OR" target="_blank">Mississippi Avenue</a></div>
     <div class="list-item-blurb">Indie shops, cute cafes — one of Portland's most charming and walkable streets.</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Hawthorne Blvd</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=Hawthorne+Blvd+Portland+OR" target="_blank">Hawthorne Blvd</a></div>
     <div class="list-item-blurb">Vintage clothing, bookshops, eclectic local stores — very Portland. Near Cartopia & Kachka.</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">Division Street</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=SE+Division+Street+Portland+OR" target="_blank">Division Street</a></div>
     <div class="list-item-blurb">Lots of cute spots to pop into — right where Kati Portland is.</div>
   </div>
 
   <div class="list-item">
-    <div class="list-item-name">23rd Avenue (NW)</div>
+    <div class="list-item-name"><a href="https://maps.google.com/?q=NW+23rd+Avenue+Portland+OR" target="_blank">23rd Avenue (NW)</a></div>
     <div class="list-item-blurb">Nicknamed "Trendy-Third" — boutiques, cafes, restaurants, very walkable and cute. Near Powell's Books.</div>
   </div>
 </div>
 
-<footer>Portland Trip · Sep 3–7, 2026 · Have the best time 🌲</footer>
+<footer>Portland Trip · Sep 5–7, 2026 · Have the best time 🌲</footer>
 
 <script>
-  function showTab(id) {
+  function showTab(id, btn) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    event.target.classList.add('active');
+    btn.classList.add('active');
   }
 </script>
 
